@@ -71,16 +71,16 @@ class InvoiceServiceImplTest {
     void retrieveInvoice() {
         Invoice invoice = new Invoice();
         invoice.setSupplier(null);
-        invoice.setAmountInvoice(100);
+        invoice.setAmountInvoice(1);
         invoice.setInvoiceDetails(null);
         invoice.setDateCreationInvoice(new Date());
         invoice.setDateLastModificationInvoice(new Date());
         invoice.setArchived(false);
         invoice.setIdInvoice(null);
-        invoice.setAmountDiscount(50);
+        invoice.setAmountDiscount(0);
         Invoice invoiceInserted = invoiceRepository.save(invoice);
         final Invoice invoiceRetrieved = this.invoiceService.retrieveInvoice(invoiceInserted.getIdInvoice());
-        assertEquals(invoiceRetrieved.getAmountInvoice(), 100f);
+        assertEquals(invoiceRetrieved.getAmountInvoice(), 1f);
     }
 
 
@@ -128,10 +128,10 @@ class InvoiceServiceImplTest {
     @DatabaseSetup("/data-set/invoice-data.xml")
     void getTotalAmountInvoiceBetweenDates() throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Invoice invoice = new Invoice(5L, 20, 100, dateFormat.parse("2020-03-03"), dateFormat.parse("2020-03-03"), false, null, null);
+        Invoice invoice = new Invoice(5L, 20, 100, dateFormat.parse("2001-01-01"), dateFormat.parse("2012-01-01"), false, null, null);
         invoiceRepository.save(invoice);
-        float amount = this.invoiceService.getTotalAmountInvoiceBetweenDates(dateFormat.parse("2019-08-26"), dateFormat.parse("2020-12-26"));
-        assertEquals(amount, 200);
+        float amount = this.invoiceService.getTotalAmountInvoiceBetweenDates(dateFormat.parse("2000-01-01"), dateFormat.parse("2015-01-01"));
+        assertEquals(amount, 101);
     }
 
 }

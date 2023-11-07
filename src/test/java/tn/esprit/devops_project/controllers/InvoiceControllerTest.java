@@ -77,7 +77,7 @@ public class InvoiceControllerTest {
     @DatabaseSetup("/data-set/invoice-data.xml")
     public void testGetTotalAmountInvoiceBetweenDates() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/invoice/price/2009-05-05/2022-05-05"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/invoice/price/2000-01-01/2010-01-01"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
     }
